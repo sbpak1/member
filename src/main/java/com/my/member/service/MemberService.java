@@ -42,4 +42,16 @@ public class MemberService {
                 .toList();
 //        return dtoList;
     }
+
+    public void insertMember(MemberDto dto) {
+        // 3. 서비스에서 DTO를 Entity로 바꾼다.
+        Member member = new Member();
+        member.setName(dto.getName());
+        member.setAge(dto.getAge());
+        member.setAddress(dto.getAddress());
+        // 4. Repository를 이용해서 저장한다.
+        member = repository.save(member);
+        System.out.println("================");
+        System.out.println(member);
+    }
 }

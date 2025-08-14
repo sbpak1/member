@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -23,5 +24,21 @@ public class MemberController {
         List<MemberDto> memberList = service.getAllList();
         model.addAttribute("list", memberList);
         return "showMember";
+    }
+
+    @GetMapping("/member/insertForm")
+    public String insertFormView() {
+        return "insertForm";
+    }
+
+    @PostMapping("/member/insert")
+    public String insert(MemberDto dto) {
+        // 1. form에서 보낸 정보를 DTO로 받는다.
+        System.out.println(dto);
+        // 2. 받은 DTO를 서비스로 보낸다.
+        service.insertMember(dto);
+
+        // 5. 메인 리스트 화면으로 돌아간다.
+        return "redirect:/list";
     }
 }
